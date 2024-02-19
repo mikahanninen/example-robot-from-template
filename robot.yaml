@@ -1,0 +1,32 @@
+# For more details on the format and content:
+# https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-is-in-robotyaml
+
+tasks:
+  # Task names here are used when executing the bots, so renaming these is recommended.
+  Example Task:
+    robotTaskName: Example Task
+  Example Task With Trace:
+    shell: python -m robot -d output -L TRACE --report NONE --logtitle "Example log" --task "Example Task" tasks.robot
+
+environmentConfigs:
+  - environment_windows_amd64_freeze.yaml
+  - environment_linux_amd64_freeze.yaml
+  - environment_darwin_amd64_freeze.yaml
+  - conda.yaml
+
+preRunScripts:
+  # Example of running an executable script right before running the robot.
+  # Different languages and platforms are supported, read more under documentation:
+  #  https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-are-prerunscripts
+  - python bin/generate-workitem-file.py output/random-workitem-file.txt
+
+artifactsDir: output
+
+PATH:
+  - bin
+PYTHONPATH:
+  - resources
+  - libraries
+
+ignoreFiles:
+  - .gitignore
